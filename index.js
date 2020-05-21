@@ -1,4 +1,13 @@
+const unified = require("unified");
+const remarkParse = require("remark-parse");
+
 const TOOLTIP_REGEX = /^&\[(.+?)\]\((.+?)\)/;
+
+function parse(doc) {
+    return unified()
+        .use(remarkParse)
+        .parse(doc);
+}
 
 function attacher() {
     function locator(value, fromIndex) {
@@ -9,12 +18,45 @@ function attacher() {
         const match = TOOLTIP_REGEX.exec(value);
 
         if (match) {
-            const baseText = match[1];
-            const tooltipContent = match[2];
+            const base = match[1];
+            const tooltip = match[2];
 
             return eat(match[0])({
                 type: "tooltip",
-                tooltip: tooltipContent,
+                children: [
+                    {
+                        type: "tooltip",
+                        children: parse(base).children[0].children,
+                        data: {
+                            hName: "span",
+                            hProperties: {
+                                class: "tooltip-base",
+                            }
+                        }
+                    },
+                    {
+                        type: "tooltip",
+                        children: parse(tooltip).children[0].children,
+                        data: {
+                            hName: "div",
+                            hProperties: {
+                                class: "tooltip-popup",
+                            }
+                        }
+                    }
+                ],
+                data: {
+                    hName: "div",
+                    hProperties: {
+                        class: "tooltip",
+                    }
+                }
+                /*
+                type: "tooltip",
+                base,
+                tooltipRaw: tooltip,
+                tooltip: parse(tooltip).children,
+                // For rehype
                 children: [
                     { type: "text", value: baseText }
                 ],
@@ -22,9 +64,10 @@ function attacher() {
                     hName: "span",
                     hProperties: {
                         class: "tooltip-base",
-                        "data-tooltip": tooltipContent,
+                        //"data-tooltip": tooltipContent,
                     }
                 }
+                */
             });
         }
     }
