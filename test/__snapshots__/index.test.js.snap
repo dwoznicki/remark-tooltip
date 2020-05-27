@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HTML tooltip should ignore escaped brackets (\\]) and carets (\\^) 1`] = `"<p><span class=\\"tooltip\\">base \\\\[\\\\] text<div class=\\"tooltip-popup\\">tooltip \\\\^ text</div></span></p>"`;
+
+exports[`HTML tooltip should parse markdown 1`] = `"<p><span class=\\"tooltip\\">base text<div class=\\"tooltip-popup\\">tooltip text</div></span></p>"`;
+
+exports[`HTML tooltip should parse markdown within the tooltip 1`] = `"<p><span class=\\"tooltip\\">base text<div class=\\"tooltip-popup\\"><em>tooltip</em> <a href=\\"/content\\">content</a></div></span></p>"`;
+
+exports[`HTML tooltip should render properly inline 1`] = `"<p>He's a <em>handsome</em> <span class=\\"tooltip\\">gecko<div class=\\"tooltip-popup\\">Anaximander</div></span>.</p>"`;

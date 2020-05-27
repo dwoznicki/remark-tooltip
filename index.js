@@ -1,13 +1,10 @@
 const unified = require("unified");
 const remarkParse = require("remark-parse");
 
-const TOOLTIP_REGEX = /^\[(.+?)\]\^(.+?)\^/;
+// Syntax: [base]^tooltip content^
+const TOOLTIP_REGEX = /^\[(.+?)\]\^(.+?[^\\])\^/;
 
-function parse(doc) {
-    return unified()
-        .use(remarkParse)
-        .parse(doc);
-}
+const processor = unified().use(remarkParse);
 
 function attacher() {
     function locator(value, fromIndex) {
@@ -27,7 +24,7 @@ function attacher() {
                     { type: "text", value: base },
                     {
                         type: "tooltip",
-                        children: parse(tooltip).children[0].children,
+                        children: processor.parse(tooltip).children[0].children,
                         data: {
                             hName: "div",
                             hProperties: {
