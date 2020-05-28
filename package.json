@@ -1,6 +1,6 @@
 {
   "name": "remark-tooltip",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "remark plugin to support tooltips",
   "main": "index.js",
   "scripts": {
