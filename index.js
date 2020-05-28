@@ -23,7 +23,7 @@ function attacher() {
                 children: [
                     { type: "text", value: base },
                     {
-                        type: "tooltip",
+                        type: "paragraph",
                         children: processor.parse(tooltip).children[0].children,
                         data: {
                             hName: "div",
