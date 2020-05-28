@@ -1,13 +1,13 @@
 {
   "name": "remark-tooltip",
   "version": "0.0.0",
-  "description": "support tooltips",
+  "description": "Add support for tooltips in markdown",
   "main": "index.js",
   "scripts": {
     "test": "jest"
   },
   "author": "Daniel Woznicki",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "jest": "^26.0.1",
     "rehype-stringify": "^7.0.0",
