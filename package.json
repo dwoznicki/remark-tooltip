@@ -1,7 +1,7 @@
 {
   "name": "remark-tooltip",
   "version": "0.0.0",
-  "description": "Add support for tooltips in markdown",
+  "description": "remark plugin to support tooltips",
   "main": "index.js",
   "scripts": {
     "test": "jest"

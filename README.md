@@ -47,5 +47,12 @@ Sample output:
 ```
 
 ## License
-[MIT][license] © [Daniel Woznicki][author]
+[MIT][license] © Daniel Woznicki
+
+<!-- Definitions -->
+[remark]: https://github.com/remarkjs/remark
+
+[rehype]: https://github.com/rehypejs/rehype
+
+[license]: license
 
