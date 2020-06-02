@@ -1,9 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HTML tooltip should ignore escaped brackets (\\]) and carets (\\^) 1`] = `"<p><span class=\\"tooltip\\">base \\\\[\\\\] text<div class=\\"tooltip-popup\\">tooltip \\\\^ text</div></span></p>"`;
+exports[`tooltip Markdown --> HTML should ignore escaped brackets (\\]) and carets (\\^) 1`] = `"<p><span class=\\"tooltip hint--top\\" aria-label=\\"tooltip \\\\^ text\\">base \\\\[\\\\] text</span></p>"`;
 
-exports[`HTML tooltip should parse markdown 1`] = `"<p><span class=\\"tooltip\\">base text<div class=\\"tooltip-popup\\">tooltip text</div></span></p>"`;
+exports[`tooltip Markdown --> HTML should not parse Markdown within tooltip content by default 1`] = `"<p><span class=\\"tooltip hint--top\\" aria-label=\\"*tooltip* [content](/content)\\">base text</span></p>"`;
 
-exports[`HTML tooltip should parse markdown within the tooltip 1`] = `"<p><span class=\\"tooltip\\">base text<div class=\\"tooltip-popup\\"><em>tooltip</em> <a href=\\"/content\\">content</a></div></span></p>"`;
+exports[`tooltip Markdown --> HTML should parse Markdown 1`] = `"<p><span class=\\"tooltip hint--top\\" aria-label=\\"tooltip text\\">base text</span></p>"`;
 
-exports[`HTML tooltip should render properly inline 1`] = `"<p>He's a <em>handsome</em> <span class=\\"tooltip\\">gecko<div class=\\"tooltip-popup\\">Anaximander</div></span>.</p>"`;
+exports[`tooltip Markdown --> HTML should parse target "balloon.css" 1`] = `"<p><span class=\\"tooltip\\" aria-label=\\"tooltip text\\" data-balloon-pos=\\"up\\">base text</span></p>"`;
+
+exports[`tooltip Markdown --> HTML should parse target "hint.css" 1`] = `"<p><span class=\\"tooltip hint--top\\" aria-label=\\"tooltip text\\">base text</span></p>"`;
+
+exports[`tooltip Markdown --> HTML should parse target "inline-html" 1`] = `"<p><span class=\\"tooltip\\">base text<div class=\\"tooltip-content\\"><em>tooltip</em> <a href=\\"/hello\\">text</a></div></span></p>"`;
+
+exports[`tooltip Markdown --> HTML should parse target "microtip" 1`] = `"<p><span class=\\"tooltip\\" aria-label=\\"tooltip text\\" role=\\"tooltip\\" data-microtip-position=\\"top\\">base text</span></p>"`;
+
+exports[`tooltip Markdown --> HTML should render properly inline 1`] = `"<p>He's a <em>handsome</em> <span class=\\"tooltip hint--top\\" aria-label=\\"Anaximander\\">gecko</span>.</p>"`;

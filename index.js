@@ -1,12 +1,35 @@
 const unified = require("unified");
 const remarkParse = require("remark-parse");
+const targets = require("./targets");
 
 // Syntax: [base]^tooltip content^
 const TOOLTIP_REGEX = /^\[(.+?)\]\^(.+?[^\\])\^/;
 
 const processor = unified().use(remarkParse);
 
-function attacher() {
+const defaultOptions = {
+    target: "hint.css",
+    parse: null,
+};
+
+function attacher(options) {
+    options = options || defaultOptions;
+
+    let targetOptions;
+    if (options.target) {
+        targetOptions = targets[options.target];
+    }
+
+    let parse = options.parse;
+    if (!parse && targetOptions) {
+        parse = targetOptions.parse;
+    }
+    if (!parse) {
+        throw new Error("Missing `parse` function. You may either pass in as an option or pass in a valid `target` option to infer it.");
+    }
+
+    const tokenize = processor.parse;
+
     function locator(value, fromIndex) {
         return value.indexOf("[", fromIndex);
     }
@@ -18,28 +41,10 @@ function attacher() {
             const base = match[1];
             const tooltip = match[2];
 
-            return eat(match[0])({
-                type: "tooltip",
-                children: [
-                    { type: "text", value: base },
-                    {
-                        type: "paragraph",
-                        children: processor.parse(tooltip).children[0].children,
-                        data: {
-                            hName: "div",
-                            hProperties: {
-                                class: "tooltip-popup",
-                            }
-                        }
-                    }
-                ],
-                data: {
-                    hName: "span",
-                    hProperties: {
-                        class: "tooltip",
-                    }
-                }
-            });
+            const node = parse(base, tooltip, tokenize);
+            node.type = "tooltip";
+
+            return eat(match[0])(node);
         }
     }
 
